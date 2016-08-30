@@ -1,16 +1,16 @@
-var path = require('path');
-var autoprefixer = require('autoprefixer');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var url = require('url');
-var paths = require('./paths');
-var env = require('./env');
+var path = require('path')
+var autoprefixer = require('autoprefixer')
+var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var url = require('url')
+var paths = require('./paths')
+var env = require('./env')
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
 if (env['process.env.NODE_ENV'] !== '"production"') {
-  throw new Error('Production builds must have NODE_ENV=production.');
+  throw new Error('Production builds must have NODE_ENV=production.')
 }
 
 // We use "homepage" field to infer "public path" at which the app is served.
@@ -18,11 +18,11 @@ if (env['process.env.NODE_ENV'] !== '"production"') {
 // single-page apps that may serve index.html for nested URLs like /todos/42.
 // We can't use a relative path in HTML because we don't want to load something
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
-var homepagePath = require(paths.appPackageJson).homepage;
-var publicPath = homepagePath ? url.parse(homepagePath).pathname : '/';
+var homepagePath = require(paths.appPackageJson).homepage
+var publicPath = homepagePath ? url.parse(homepagePath).pathname : '/'
 if (!publicPath.endsWith('/')) {
   // If we don't do this, file assets will get incorrect paths.
-  publicPath += '/';
+  publicPath += '/'
 }
 
 // This is the production configuration.
@@ -79,7 +79,7 @@ module.exports = {
     preLoaders: [
       {
         test: /\.js$/,
-        loader: 'eslint',
+        loader: 'standard',
         include: paths.appSrc
       }
     ],
@@ -147,25 +147,18 @@ module.exports = {
       }
     ]
   },
-  // Point ESLint to our predefined config.
-  eslint: {
-    // TODO: consider separate config for production,
-    // e.g. to enable no-console and no-debugger only in production.
-    configFile: path.join(__dirname, 'eslint.js'),
-    useEslintrc: false
-  },
   // We use PostCSS for autoprefixing only.
-  postcss: function() {
+  postcss: function () {
     return [
       autoprefixer({
         browsers: [
           '>1%',
           'last 4 versions',
           'Firefox ESR',
-          'not ie < 9', // React doesn't support IE8 anyway
+          'not ie < 9' // React doesn't support IE8 anyway
         ]
-      }),
-    ];
+      })
+    ]
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
@@ -212,4 +205,4 @@ module.exports = {
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin('static/css/[name].[contenthash:8].css')
   ]
-};
+}
