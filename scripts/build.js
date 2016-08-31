@@ -40,7 +40,7 @@ function getDifferenceLabel (currentSize, previousSize) {
 
 // First, read the current file sizes in build directory.
 // This lets us display how much they changed later.
-recursive(paths.appBuild, (err, fileNames) => {
+recursive(paths.appBuild, (_err, fileNames) => {
   var previousSizeMap = (fileNames || [])
     .filter(fileName => /\.(js|css)$/.test(fileName))
     .reduce((memo, fileName) => {

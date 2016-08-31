@@ -173,9 +173,7 @@ function addMiddleware (devServer) {
     // Modern browsers include text/html into `accept` header when navigating.
     // However API calls like `fetch()` won’t generally won’t accept text/html.
     // If this heuristic doesn’t work well for you, don’t use `proxy`.
-    htmlAcceptHeaders: proxy ?
-      ['text/html'] :
-      ['text/html', '*/*']
+    htmlAcceptHeaders: proxy ? ['text/html'] : ['text/html', '*/*']
   }))
   if (proxy) {
     if (typeof proxy !== 'string') {
